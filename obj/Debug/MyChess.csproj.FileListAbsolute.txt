@@ -1,0 +1,16 @@
+E:\Chess App New\MyChess V 1.0\MyChess\bin\MyChess.dll
+E:\Chess App New\MyChess V 1.0\MyChess\bin\MyChess.pdb
+E:\Chess App New\MyChess V 1.0\MyChess\bin\EntityFramework.dll
+E:\Chess App New\MyChess V 1.0\MyChess\bin\Microsoft.Web.Infrastructure.dll
+E:\Chess App New\MyChess V 1.0\MyChess\bin\Newtonsoft.Json.dll
+E:\Chess App New\MyChess V 1.0\MyChess\bin\SignalR.dll
+E:\Chess App New\MyChess V 1.0\MyChess\bin\SignalR.Hosting.AspNet.dll
+E:\Chess App New\MyChess V 1.0\MyChess\bin\SignalR.Hosting.Common.dll
+E:\Chess App New\MyChess V 1.0\MyChess\bin\EntityFramework.xml
+E:\Chess App New\MyChess V 1.0\MyChess\bin\Newtonsoft.Json.xml
+E:\Chess App New\MyChess V 1.0\MyChess\bin\SignalR.xml
+E:\Chess App New\MyChess V 1.0\MyChess\bin\SignalR.Hosting.AspNet.xml
+E:\Chess App New\MyChess V 1.0\MyChess\bin\SignalR.Hosting.Common.xml
+E:\Chess App New\MyChess V 1.0\MyChess\obj\Debug\ResolveAssemblyReference.cache
+E:\Chess App New\MyChess V 1.0\MyChess\obj\Debug\MyChess.dll
+E:\Chess App New\MyChess V 1.0\MyChess\obj\Debug\MyChess.pdb

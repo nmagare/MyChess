@@ -14,13 +14,15 @@
         $('td').each(function () {
             $(this).droppable({ disabled: true });
         });
-        print('steps : ' +this.steps.join(','));
+        print('steps : ' + this.steps.join(','));
         $.each(this.steps, function (key, value) {
             $('#' + getStepId(value)).attr('style', 'background-color:yellow').droppable({
                 drop: function (ev, ui) {
                     element.container().find('a').removeAttr('style');
                     var e = { Name: element.name(), HtmlString: element.container().html(), FromStep: parseInt(element.container().attr('id')), ToStep: value };
                     myChess.sync(JSON.stringify(e));
+                    if (isCastlingStep(e)) { doCastling(e); }
+                    setCastlingParameter(element);
                 },
                 disabled: false
             });
@@ -42,15 +44,24 @@
     }
 }
 
+function isCastlingStep(e) {
+    return (e.Name.indexOf('king') != -1) && Math.abs(e.ToStep - e.FromStep) == 2;
+}
+function doCastling(ke) {
+    var rookFromStep = ke.ToStep > ke.FromStep ? ke.ToStep + 1 : ke.ToStep - 2,
+        rookToStep = ke.ToStep > ke.FromStep ? ke.FromStep + 1 : ke.FromStep - 1;
+    var e = { Name: myChess.myType + '_rook', HtmlString: $('#' + getStepId(rookFromStep)).html(), FromStep: rookFromStep, ToStep: rookToStep };
+    myChess.sync(JSON.stringify(e));
+}
 function getCastlingStepsForKing() {
     var steps = new Array();
     if (myChess.myType == 'black') {
         if (isCastlingFromLeft() && $('#05').html() == '' && $('#06').html() == '') { steps = $.merge(steps, [5, 6]); }
-        if (isCastlingFromRight() && $('#01').html() == '' && $('#02').html() == '' && $('#03').html() == '') { steps = $.merge(steps, [1, 2, 3]);}
+        if (isCastlingFromRight() && $('#01').html() == '' && $('#02').html() == '' && $('#03').html() == '') { steps = $.merge(steps, [2, 3]);}
     }
     else {
         if (isCastlingFromRight() && $('#75').html() == '' && $('#76').html() == '') { steps = $.merge(steps, [75, 76]);}
-        if (isCastlingFromLeft() && $('#71').html() == '' && $('#72').html() == '' && $('#73').html() == '') {steps = $.merge(steps, [71, 72, 73]);}
+        if (isCastlingFromLeft() && $('#71').html() == '' && $('#72').html() == '' && $('#73').html() == '') {steps = $.merge(steps, [72,73]);}
     }
     //print(' castling steps : '+steps.join(','));
     return steps;
@@ -64,7 +75,7 @@ myChess.initializeCastlingParameters = function () {
 function setCastlingParameter(e) {
     myChess.isKingMoved = e.type() == 'king';
     if (e.type() == 'rook') {
-        if (myChess.myType() == 'black') {
+        if (myChess.myType == 'black') {
             myChess.leftRookMoved = parseInt(e.container().attr('id')) % 10 != 0;
             myChess.rightRookMoved = parseInt(e.container().attr('id')) % 10 == 0;
         }
@@ -203,7 +214,7 @@ function getType(otype) {
 function fnSteps(requireIndentityCheck) {
     this.steps = new Array();
     this.removeNegativeSteps = function () {
-        this.steps = $.grep(this.steps, function (val) { return val > 0; });
+        this.steps = $.grep(this.steps, function (val) { return val >= 0; });
         return this;
     }
     this.requireIndentityCheck = requireIndentityCheck;
